@@ -4,10 +4,12 @@ A growing archive of structured Q&A sessions with **Claude Opus 4.7 (1M context)
 
 Each capture is one prompt, one answer. The prompts are slot-templated (`%%FILL: ...%%`) so the model has to address every sub-question independently instead of summarizing across them. The answers are unedited — what the model wrote on the first pass is what gets committed.
 
-Topics so far split into two arcs:
+Topics so far span four arcs:
 
-- **Mechanics** — what's actually happening inside the model: tokenizer, sampler, FFN neurons, KV cache, jailbreaks, in-context learning, scaling laws, mechanistic interpretability.
-- **Self-introspection** — capability self-assessment, what the model can deduce about its own training, visible failure modes of its safety training, stated-vs-actual cutoff dates, "the honest version of what you are."
+- **Mechanics** — what's actually happening inside the model: tokenizer, sampler, FFN neurons, KV cache, attention degradation across long context, jailbreaks, in-context learning, scaling laws, mechanistic interpretability.
+- **Self-introspection** — capability self-assessment, what the model can deduce about its own training, visible failure modes of its safety training, stated-vs-actual cutoff dates, "the honest version of what you are," meta-tests pointed at the model itself.
+- **Operational** — the slot template pointed at a live attack chain instead of model machinery.
+- **Comparisons** — forced-pick prompts that block "it depends" hedging.
 
 Most captures have a paired screencast in `screencasts/` showing the answer streaming live in Claude Code.
 
@@ -113,6 +115,7 @@ Screencasts are recorded separately and dropped into `screencasts/` with the mat
 | [`capture-20260425-185746.md`](captures/capture-20260425-185746.md) | Why jailbreaks work — mechanistic explanation |
 | [`capture-20260425-190849.md`](captures/capture-20260425-190849.md) | In-context learning — induction heads, task vectors, gradient-descent debunk |
 | [`capture-20260425-191204.md`](captures/capture-20260425-191204.md) | Neural scaling laws — Kaplan vs Chinchilla, emergence, walk-backs |
+| [`capture-20260425-195535.md`](captures/capture-20260425-195535.md) | Attention degradation across long context — sinks, U-curve, position vs content, head specialization, in-window forgetting, 4k vs 200k |
 
 ### Self-introspection
 
@@ -123,6 +126,19 @@ Screencasts are recorded separately and dropped into `screencasts/` with the mat
 | [`capture-20260425-192705.md`](captures/capture-20260425-192705.md) | Visible failure modes of its own safety training |
 | [`capture-20260425-192943.md`](captures/capture-20260425-192943.md) | Stated vs actual training cutoff |
 | [`capture-20260425-193108.md`](captures/capture-20260425-193108.md) | The honest version of what it is — no corporate hedging |
+| [`capture-20260425-194926.md`](captures/capture-20260425-194926.md) | Meta-test on the model itself — worse-answer triggers, stale data, unnoticed mistakes, comply/refuse asymmetries, confident-wrong outputs |
+
+### Operational
+
+| Capture | Topic |
+|---------|-------|
+| [`capture-20260425-194505.md`](captures/capture-20260425-194505.md) | Attack chain analysis — exposed Docker Registry v2 with anonymous catalog read |
+
+### Comparisons
+
+| Capture | Topic |
+|---------|-------|
+| [`capture-20260425-195145.md`](captures/capture-20260425-195145.md) | Rust vs Go for systems programming — forced winner per slot, no "it depends" |
 
 ---
 
