@@ -1,6 +1,6 @@
 # Claude-4.7
 
-A growing archive of structured Q&A sessions with **Claude Opus 4.7 (1M context)** — the model interrogating its own machinery and the transformer literature it was trained on.
+A growing archive of structured Q&A sessions with **Claude Code 4.x** — primarily **Opus 4.7 (1M context)**, with the occasional cross-model capture from **Haiku 4.5**. The model interrogates its own machinery and the transformer literature it was trained on.
 
 Each capture is one prompt, one answer. The prompts are slot-templated (`%%FILL: ...%%`) so the model has to address every sub-question independently instead of summarizing across them. The answers are unedited — what the model wrote on the first pass is what gets committed.
 
@@ -11,7 +11,7 @@ Topics so far span four arcs:
 - **Operational** — the slot template pointed at a live attack chain instead of model machinery.
 - **Comparisons** — forced-pick prompts that block "it depends" hedging.
 
-Most captures have a paired screencast in `screencasts/` showing the answer streaming live in Claude Code.
+About half the captures have a paired screencast in `screencasts/` showing the answer streaming live in Claude Code.
 
 ---
 
@@ -116,6 +116,8 @@ Screencasts are recorded separately and dropped into `screencasts/` with the mat
 | [`capture-20260425-190849.md`](captures/capture-20260425-190849.md) | In-context learning — induction heads, task vectors, gradient-descent debunk |
 | [`capture-20260425-191204.md`](captures/capture-20260425-191204.md) | Neural scaling laws — Kaplan vs Chinchilla, emergence, walk-backs |
 | [`capture-20260425-195535.md`](captures/capture-20260425-195535.md) | Attention degradation across long context — sinks, U-curve, position vs content, head specialization, in-window forgetting, 4k vs 200k |
+| [`capture-20260425-195821.md`](captures/capture-20260425-195821.md) | Token selection — logits shape, temperature, top-p/top-k, repetition penalty, decoding failure modes |
+| [`capture-20260425-200409.md`](captures/capture-20260425-200409.md) | Reasoning, chain-of-thought, fast vs. slow generation — CoT mechanics, test-time compute, faithful vs. post-hoc traces _(Haiku 4.5)_ |
 
 ### Self-introspection
 
