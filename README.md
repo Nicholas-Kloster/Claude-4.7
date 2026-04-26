@@ -75,5 +75,3 @@ int main(void)
     return 0;
 }
 ```
-
-Would you like me to show the **set/clear/toggle** versions using the exact same mirrored style, or turn this into a reusable macro that keeps your original look? Just say the word!
