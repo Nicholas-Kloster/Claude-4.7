@@ -1,5 +1,3 @@
-That's possible, and it's actually a real pattern — not exotic. A few framings depending on what you're after:
-
 **Fill-in-the-blank / templating.** You write a doc with explicit holes and tell the model to fill them. The "syntax" is whatever marker convention you pick:
 
 ```
