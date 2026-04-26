@@ -31,6 +31,3 @@ Model replaces the `<...>` placeholders with prose drawn from what it knows abou
 
 Then your prompt is literally "Replace each `%%FILL: ...%%` with the requested content. Leave everything else untouched." Models follow that reliably if the marker is distinctive.
 
-**Where it breaks down:** if the "internal information" you want filled in is something the model doesn't actually know (your private codebase, last week's incident, a niche standard), it'll hallucinate confidently. The pattern only works when the slots are fillable from general knowledge, or when you also pass the source material the model needs to draw from.
-
-What's the actual use case? If you tell me what you're trying to generate — code comments, docs, reports, structured findings — I can suggest a marker convention that fits the workflow instead of giving you the abstract version.
