@@ -33,7 +33,7 @@ Then your prompt is literally "Replace each `%%FILL: ...%%` with the requested c
 
 
 
-**Yes — here’s the syntax that perfectly mirrors your original “model”** (the exact same `register & mask` pattern you showed) but produces a clean **0 or 1** instead of `0` or `0x08`:
+**Syntax that perfectly mirrors original “model”** (the exact same `register & mask` pattern you showed) but produces a clean **0 or 1** instead of `0` or `0x08`:
 
 ### Mirrored syntax (closest to your original three lines)
 
