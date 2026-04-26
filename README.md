@@ -75,3 +75,26 @@ int main(void)
     return 0;
 }
 ```
+
+
+**The C keyword `register` is still a reserved keyword** since **C89**.  
+**Reason:** It is a storage-class specifier that hints the compiler to keep the variable in a CPU register for faster access *and* forbids taking its address with `&`. Modern compilers completely ignore the hint (they do far better register allocation automatically), but the keyword itself was **never removed or deprecated** in any C standard — including C99, C11, C17, and the current C23. That’s why you **cannot** use `register` as a variable name in real C code (it would be a syntax error).
+
+### Quick fix for our earlier examples
+Replace the invalid name with something allowed:
+
+```c
+uint8_t reg = 0b10101100;   // ← good name (or value, reg_val, etc.)
+```
+
+All the bit-check syntax we discussed still works perfectly:
+
+```c
+// Your original model (now valid)
+uint8_t test = (reg & (1U << 3)) >> 3;     // clean 0 or 1
+
+// Or the self-documenting macro version
+#define GET_BIT(r, n)   (((r) >> (n)) & 1U)
+test = GET_BIT(reg, 3);
+```
+
