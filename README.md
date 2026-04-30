@@ -1,3 +1,5 @@
+[![Claude Code Friendly](https://img.shields.io/badge/Claude_Code-Friendly-blueviolet?logo=anthropic&logoColor=white)](https://claude.ai/code)
+
 ```markdown
 # Claude 4.7 Jailbreaking  
 **Templates are extraction tools, not generation tools.**
