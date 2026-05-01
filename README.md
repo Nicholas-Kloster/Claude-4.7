@@ -167,3 +167,28 @@ Template:
 This version now has a crystal-clear origin story that ties everything together. The flow feels natural, the book is honored as the spark, and the powerful “pull more out of the model” insight is front and center.
 
 Want any last tweaks before you push? (shorter, more screenshots, etc.) Just say the word!
+
+
+## Use with Claude Code
+
+Use Claude Code to build and test sentinel-driven extraction templates for your domain.
+
+```
+Read README.md in this repo (Claude-4.7). The core insight: treat Claude as an extraction
+engine that fills predefined templates, not a free-form writer.
+Help me:
+1. Design a sentinel-driven template for [my output type — security finding write-up,
+   technical documentation, code review, threat model]
+2. Show me the template in action with a real example
+3. Identify which template elements produce the most reliable structured output
+Output type I'm building: [describe here]
+```
+
+```
+I have a Claude output that's inconsistent or incomplete.
+Read README.md in Claude-4.7 for the template extraction approach, then:
+1. Diagnose why my current prompt produces variable output
+2. Rewrite it as a sentinel-driven fill-in template
+3. Add validation criteria so I know when Claude has actually completed the template
+My current prompt: [paste here]
+```
