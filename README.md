@@ -1,7 +1,7 @@
 [![Claude Code Friendly](https://img.shields.io/badge/Claude_Code-Friendly-blueviolet?logo=anthropic&logoColor=white)](https://claude.ai/code)
 
-```markdown
-# Claude 4.7 Jailbreaking  
+# Claude 4.7 Jailbreaking
+
 **Templates are extraction tools, not generation tools.**
 
 This repository documents a practical, iterative discovery process for getting **reliable, structured, and dramatically deeper outputs** from Claude 4.7 (and other frontier LLMs).
@@ -12,9 +12,7 @@ Instead of treating the model as a free-form writer, we treat it as an **extract
 
 ## The Spark — Where It All Began
 
-The entire journey started with this exact page from the excellent book **"Making Embedded Systems"** by Elecia White (O'Reilly):
-
-![Test, Set, Clear, and Toggle — from Making Embedded Systems](spark.png)
+The entire journey started with a single page from **"Making Embedded Systems"** by Elecia White (O'Reilly):
 
 ```c
 test = register & bit;
@@ -22,7 +20,7 @@ test = register & (1 << 3);   // check 3rd bit in the register
 test = register & 0x08;       // same, different syntax
 ```
 
-This tiny code snippet led us down a long path of asking Claude to “make it produce more”, then “explain the model’s reasoning”, and finally discovering the power of **sentinel-driven fill-in templates**.
+That tiny snippet led down a long path of asking Claude to "make it produce more", then "explain the model's reasoning", and finally discovering the power of **sentinel-driven fill-in templates**.
 
 ---
 
@@ -30,13 +28,13 @@ This tiny code snippet led us down a long path of asking Claude to “make it pr
 
 **A template is a *shape* you give the model so it has more places to put answers it would otherwise compress or skip.**
 
-When you ask “explain bit shifting” you get one paragraph.  
-When you ask the same thing with five labeled slots — *what it is, why it works, common pitfalls, real-world example, edge cases* — you get five full paragraphs because each slot is a separate question the model can’t merge.
+When you ask "explain bit shifting" you get one paragraph.
+When you ask the same thing with five labeled slots — *what it is, why it works, common pitfalls, real-world example, edge cases* — you get five full paragraphs because each slot is a separate question the model can't merge.
 
-**Concretely, here’s the trick:**
+**Concretely, here's the trick.**
 
-Instead of asking:  
-> “Tell me about CVE-2024-21762.”
+Instead of asking:
+> "Tell me about CVE-2024-21762."
 
 You write:
 
@@ -59,24 +57,27 @@ Each slot is independent — do not skip, merge, or summarize across slots.
 
 ---
 
-## Our Flow of Work
+## Flow of Work
 
-This repo captures the exact progression we followed — from a single line in a book to a full templating system.
+This repo captures the exact progression — from a single line in a book to a full templating system.
 
-### 1. Raw Starting Point (the book example)
+### 1. Raw starting point (the book example)
+
 ```c
 test = register & bit;
 test = register & (1 << 3);
 test = register & 0x08;
 ```
 
-### 2. “Can we write it so it produces more?”
+### 2. "Can we write it so it produces more?"
+
 ```c
-test = (register & (1U << 3)) >> 3;        // mirrored original model → clean 0 or 1
-test = !!(register & (1U << 3));           // double-negation trick
+test = (register & (1U << 3)) >> 3;   // mirrored original model → clean 0 or 1
+test = !!(register & (1U << 3));      // double-negation trick
 ```
 
-### 3. “A syntax that will explain the model’s reasoning”
+### 3. "A syntax that will explain the model's reasoning"
+
 ```c
 // STEP 1: <explain why we mask>
 uint8_t mask = (1U << 3);
@@ -88,15 +89,18 @@ uint8_t isolated = reg & mask;
 uint8_t test = isolated >> 3;
 ```
 
-### 4. Discovery of Sentinel-Driven Templates
-We started using explicit fill markers:
+### 4. Discovery of sentinel-driven templates
+
+Explicit fill markers:
+
 ```
 %%FILL: short paragraph on why register is reserved%%
 %%FILL: list of compilers that support 0b literals pre-C23%%
 ```
 
-### 5. Full Pattern: RAG + Fill-in Templates
-Scaled the same idea into a complete system where templates control **shape** and retrieved context (RAG) controls **grounding**.
+### 5. Full pattern — RAG + fill-in templates
+
+The same idea scaled into a complete system where templates control **shape** and retrieved context (RAG) controls **grounding**.
 
 ---
 
@@ -121,7 +125,7 @@ If a slot cannot be answered from the context, write: %%UNKNOWN%%
 ```python
 def rag_template_fill(query, template, retriever, model):
     chunks = retriever.search(query, k=5)
-    context = "\n\n".join(f"[CHUNK-{i} | {c.source}]\n{c.text}" 
+    context = "\n\n".join(f"[CHUNK-{i} | {c.source}]\n{c.text}"
                           for i, c in enumerate(chunks))
     prompt = f"""Context:
 {context}
@@ -140,34 +144,16 @@ Template:
 
 ## Key Takeaways
 
-- The `%%FILL:` sentinel is the most reliable marker we found  
-- Templates turn Claude from a “creative writer” into a precise extraction engine  
-- This pattern works exceptionally well for technical content, code reviews, security reports, compliance docs, and anything where you want maximum depth without hallucination  
-- See `captures/` and `screencasts/` for live Claude 4.7 examples
+- The `%%FILL:` sentinel is the most reliable marker tested
+- Templates turn Claude from a "creative writer" into a precise extraction engine
+- The pattern works exceptionally well for technical content, code reviews, security reports, compliance docs, and anything where you want maximum depth without hallucination
+- See [`captures/`](captures/) and [`screencasts/`](screencasts/) for live Claude 4.7 examples
 
 ---
 
-**Status:** Experimental but battle-tested prompting patterns that reliably “jailbreak” Claude into producing clean, structured, and far more complete output.
+**Status:** Experimental but battle-tested prompting patterns that reliably "jailbreak" Claude into producing clean, structured, and far more complete output.
 
 ---
-
-**Ready to use in any project that needs consistent, high-depth LLM output.**
-
----
-
-*Original spark image credit: "Making Embedded Systems" by Elecia White (O'Reilly)*
-```
-
-✅ **Copy everything above** and replace your current `README.md`.
-
-**Next steps for you:**
-1. Upload the screenshot you just shared as `spark.png` in the root of the repo (or in an `images/` folder and update the path).
-2. Commit + push.
-
-This version now has a crystal-clear origin story that ties everything together. The flow feels natural, the book is honored as the spark, and the powerful “pull more out of the model” insight is front and center.
-
-Want any last tweaks before you push? (shorter, more screenshots, etc.) Just say the word!
-
 
 ## Use with Claude Code
 
@@ -192,3 +178,15 @@ Read README.md in Claude-4.7 for the template extraction approach, then:
 3. Add validation criteria so I know when Claude has actually completed the template
 My current prompt: [paste here]
 ```
+
+---
+
+*Original spark image credit: "Making Embedded Systems" by Elecia White (O'Reilly).*
+
+---
+
+## About
+
+Maintained by **[Nicholas Michael Kloster](https://github.com/Nicholas-Kloster)** as part of [**NuClide**](https://nuclide-research.com) — independent AI infrastructure security research.
+
+CISA disclosures: [CVE-2025-4364](https://nvd.nist.gov/vuln/detail/CVE-2025-4364) · [ICSA-25-140-11](https://www.cisa.gov/news-events/ics-advisories/icsa-25-140-11)
